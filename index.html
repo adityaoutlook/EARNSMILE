@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>EARNSMILE - Earn Rewards for Your Smiles</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <h1>� EARNSMILE</h1>
+    <p>Earn rewards for your genuine smiles</p>
+  </header>
+
+  <main class="container">
+
+    <!-- Login Screen -->
+    <div id="login-screen" class="full-screen">
+        <div id="login-card" class="login-card">
+            <h2>👋 Welcome to EARNSMILE</h2>
+            <p>Earn rewards for your genuine smiles</p>
+            <div class="login-form">
+                <input type="text" id="username" placeholder="Enter your username" class="input-large">
+                <input type="password" id="password" placeholder="Enter your password" class="input-large">
+                <button id="login-btn" class="btn-primary-large">Login & Enable Camera</button>
+                <button id="learn-btn" class="btn-secondary" style="margin-top: 10px;">ℹ️ What is Based Smiles?</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Info Modal -->
+    <div id="info-modal" class="modal" style="display: none;">
+        <div class="modal-content" style="max-height: 80vh; overflow-y: auto; max-width: 600px;">
+            <span class="modal-close" onclick="closeInfoModal()">&times;</span>
+            <h2>😊 What is EARNSMILE?</h2>
+            
+            <h3>💡 The Magic Idea</h3>
+            <p>Based Smiles is an app that rewards real happiness! If you give a genuine smile, you get digital money (USDC) 💰</p>
+            
+            <h3>📸 Step 1: You Smile</h3>
+            <ul>
+                <li>Open the app</li>
+                <li>Take a selfie while smiling 😁</li>
+                <li>Show us your real, natural smile!</li>
+            </ul>
+            
+            <h3>🤖 Step 2: Robot Checks Your Smile</h3>
+            <p>Our smart AI robot 🤖 analyzes your smile:</p>
+            <ul>
+                <li>Are your eyes smiling?</li>
+                <li>Is your smile natural?</li>
+                <li>Are you really happy?</li>
+            </ul>
+            <p>Your smile gets a score from 1 to 5 ⭐</p>
+            
+            <h3>✅ Step 3: Good Smile = Reward</h3>
+            <p><strong>Score 4-5? You win! 🎉</strong></p>
+            <ul>
+                <li>Earn 5 USDC (digital money)</li>
+                <li>Build your streak 🔥</li>
+                <li>Unlock badges 🏆</li>
+            </ul>
+            <p><strong>Score below 4?</strong> Try again tomorrow! 😊</p>
+            
+            <h3>💰 What is USDC?</h3>
+            <ul>
+                <li>USDC = 1 US Dollar = digital pocket money 💵</li>
+                <li>Stable value (doesn't change much)</li>
+                <li>Save it in your digital wallet 🐷</li>
+                <li>Trade or transfer it anytime</li>
+            </ul>
+            
+            <h3>🔥 Build Your Streak</h3>
+            <ul>
+                <li>Smile every day to build a streak</li>
+                <li>3+ days = Bronze Badge 🥉</li>
+                <li>7+ days = Silver Badge 🥈</li>
+                <li>30+ days = Gold Legend 🏆</li>
+            </ul>
+            
+            <h3>🖼️ Smile Gallery</h3>
+            <p>Your approved smiles go into your personal gallery! See your happy memories and track your journey 📸</p>
+            
+            <h3>🚫 Fair & Secure</h3>
+            <ul>
+                <li>❌ You can't use the same photo twice</li>
+                <li>❌ No fake accounts allowed</li>
+                <li>✅ Our AI stops cheaters</li>
+                <li>✅ One real smile per day per person</li>
+            </ul>
+            
+            <h3>🎯 Why Based Smiles?</h3>
+            <p>We believe happiness should be rewarded! Technology can spread joy, build community, and prove that computers can be a force for good. 🌈</p>
+            
+            <p style="text-align: center; margin-top: 20px; font-weight: bold;">Ready to start smiling? 😄</p>
+        </div>
+    </div>
+
+    <!-- Main Dashboard (hidden until login) -->
+    <div id="dashboard" class="dashboard hidden">
+        <!-- User Info Bar -->
+        <div class="user-bar">
+            <div class="user-info">
+                <h2 id="user-greeting">Welcome!</h2>
+            </div>
+            <div id="wallet" class="wallet-display">
+                <span class="wallet-icon">💰</span>
+                <span id="wallet-balance">0 USDC</span>
+            </div>
+        </div>
+
+        <!-- Camera Section (Full Width) -->
+        <div class="camera-section">
+            <div class="camera-container">
+                <video id="video" autoplay playsinline></video>
+                <div id="camera-status" class="camera-status">📹 Ready to capture</div>
+            </div>
+            <button id="capture-btn" class="btn-capture">📸 Capture Smile</button>
+            <p id="result" class="result-message"></p>
+            <canvas id="canvas" style="display: none;"></canvas>
+        </div>
+
+        <!-- Captured Image Gallery -->
+        <div class="gallery-section" id="gallery-section" style="display: none;">
+            <h3>📸 Captured Images</h3>
+            <div id="captured-gallery" class="image-gallery"></div>
+        </div>
+
+        <!-- Progress & Badges Section -->
+        <div class="stats-section">
+            <div class="stat-card">
+                <h3>🔥 Your Streak</h3>
+                <p class="big-number" id="streak-display">0</p>
+                <div id="progress-bar" class="progress-bar-large">
+                    <div id="progress"></div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <h3>🏆 Level & Badges</h3>
+                <div id="badges" class="badges-display"></div>
+            </div>
+            <div class="stat-card">
+                <h3>🤖 Today's Score</h3>
+                <p class="big-number" id="scoreText">-</p>
+            </div>
+        </div>
+
+        <!-- History Section -->
+        <div class="history-section">
+            <h2>📅 Your Smile History</h2>
+            <table id="history-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Score</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- History will be populated here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+  </main>
+
+    <canvas id="canvas"></canvas>
+    <script src="script.fixed.js"></script>
+</body>
+</html>
